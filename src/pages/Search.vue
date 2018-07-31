@@ -1,10 +1,5 @@
 <template>
 <div>
-	<scroll class="wrapper-search"
-	        :data="shopList"
-	        :pullup="pullup"
-	        @scrollToEnd="loadData">
-		<div class="search" ref="search">
 			<div class="header">
 				<div class="search-box">
 					<input type="text" v-model="markName" placeholder="请输入商标名称">
@@ -17,6 +12,12 @@
 					<button @click="changeIsFilter" ref="displayBtn">筛选<i class="iconfont icon-shaixuan"></i></button>
 				</div>
 			</div>
+	<scroll class="wrapper-search"
+	        :data="shopList"
+	        :pullup="pullup"
+	        @scrollToEnd="loadData">
+		<div class="search" ref="search">
+			
 			<div class="shop-list" >
 				<shop v-for="(item,index) in shopList" :key="index" :shopInfo="item"></shop>
 			</div>
@@ -92,6 +93,7 @@
 			loadData:function(){
 				this.status = 1;
 				if(this.pageNumber<this.totalPage){
+					console.log("pageNumber:"+this.pageNumber+"totalPage:"+this.totalPage)
 					this.pageNumber += 1;
 					this.$store.commit('pageNumber',1);
 					var params = this.$store.state.params;
@@ -130,13 +132,13 @@
 				//     this.totalPage = res.totalPage;
 				//     this.status = 2;
 				//     this.pageNumber = 1;
-				//   }, res => {
+				//   }).catch( res => {
 				//     // 错误回调
 				//     console.log(res)
 				//   })
 				setTimeout(()=>{
 					this.shopList = searchData.shopList;
-					this.totalPage = 3;
+					this.totalPage = 5;
 					this.pageNumber = 1;
 					this.status = 2;
 				},1000)
@@ -169,32 +171,7 @@
 </script>
 
 <style lang="less" scoped>
-	.wrapper-search{
-		background-color: #fff;
-		position: fixed;
-		width: 100%;
-		height: 100%;
-		top:0;
-		left: 0;
-		z-index:-1;
-	}
-	.loading-wrapper{
-		margin-top:20px;
-		margin-bottom: 50px;
-		font-size: 24px; /*px*/
-		color: #999;
-	}
-	.wrapper-filter{
-		background-color: rgba(0,0,0,0.5);
-		position: fixed;
-		width: 100%;
-		height: 100%;
-		top:0;
-		right: 0;
-		overflow: hidden;
-	}
-	.search{
-		.header{
+	.header{
 			top: 0;
 			left: 0;
 			background-color: #f6f5fa;
@@ -253,6 +230,35 @@
 				margin-top:0;
 			}
 		}
+	.wrapper-search{
+		background-color: #fff;
+		position: fixed;
+		width: 100%;
+		/*height: 100%;*/
+		top:170px;
+		bottom:0;
+		left: 0;
+		z-index:-1;
+		overflow: hidden;
+		padding-bottom: 10px;
+	}
+	.loading-wrapper{
+		margin-top:20px;
+		margin-bottom: 100px;
+		font-size: 24px; /*px*/
+		color: #999;
+	}
+	.wrapper-filter{
+		background-color: rgba(0,0,0,0.5);
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top:0;
+		right: 0;
+		overflow: hidden;
+	}
+	.search{
+		
 		.shop-list{
 			margin-top:20px;
 		}

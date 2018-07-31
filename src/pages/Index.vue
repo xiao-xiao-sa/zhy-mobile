@@ -14,6 +14,7 @@
 			<ul class="sort-list">
 				<li v-for="(item,index) in sortList" :key="index" @click="toSearch(item.cateCode)">
 					<img :src="item.src" alt="">
+					<span>{{item.title}}</span>
 				</li>
 			</ul>
 			<router-link to="/Sort" class="more">
@@ -194,12 +195,18 @@
 				position: relative;
 				left:10px;
 				li{
+					position: relative;
 					width: 175px;
 					img{
 						width: 140px;
 					}
-					P{
-						font-size: 14px;/*px*/
+					span{
+						font-size: 20px;/*px*/
+						position: absolute;
+						width: 100%;
+						bottom:35px;
+						left: 0;
+						text-align: center;
 					}
 				}
 			}

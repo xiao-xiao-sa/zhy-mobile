@@ -234,9 +234,9 @@
 							border:1px solid #d4d4d4;
 							font-size: 28px; /*px*/
 							img{
-								width: 100px;
-								height: 100px;
-								margin:36px auto;
+								width: 182px;
+								height: 124px;
+								margin:24px auto;
 							}
 						}
 					}
