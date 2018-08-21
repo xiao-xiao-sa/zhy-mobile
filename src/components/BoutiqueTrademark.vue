@@ -20,8 +20,17 @@
 		props:['trademark'],
 		methods:{
 			toSearch:function(){
-				this.$store.commit('cateCode',this.trademark.cateCode);
-				this.$router.push({path:'/Search'})
+				var title=this.trademark.title,cateCode=this.trademark.cateCode;
+				console.log(title,cateCode)
+				this.$store.commit('cateCode',{v1:title,v2:cateCode});
+				this.$store.commit('qmarktype','');
+				this.$store.commit('qregdate','');
+				this.$store.commit('qworknum','');
+				this.$store.commit('qprice_min',0);
+				this.$store.commit('qprice_max',10000000000);
+				this.$store.commit('markName','');
+				this.$store.commit('page',1);
+				this.$router.push({path:'/Search'});
 			},
 			toDetail:function(val){
 				console.log(val)
@@ -35,7 +44,7 @@
 <style lang="less" scoped>
 	.boutique-trademark{
 		width: 700px;
-		height: 480px;
+		height: 600px;
 		background-color: #fff;
 		margin:25px auto 0;
 		border-radius: 10px;
@@ -70,8 +79,10 @@
 			}
 			img{
 				border-radius: 10px;
+				display: block;
 				width: 320px;
-				height: 180px;
+				height: 236px;
+				border:1px solid red;
 			}
 		}
 	}

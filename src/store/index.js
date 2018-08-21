@@ -9,29 +9,47 @@ export default new vuex.Store({
 			qmarktype:null,		//类型
 			qregdate:null,		//注册日期
 			qworknum:null,		//字数
-			qprice:null,		//价格
+			qprice_min:0,		//最小价格
+			qprice_max:100000000,//最大价格
 			markName:null,      //商标名称
-			pageNumber:1,		//页数
-			pageSize:20      	//页面大小
+			page:1,				//页数
+			pagesize:20      	//页面大小
+		},
+		params1:{
+			cateCode:null,      //商标类别
+			qmarktype:null,		//类型
+			qregdate:null,		//注册日期
+			qworknum:null,		//字数
+			qprice:null,
 		},
 		shopInfo:null
 	},
 	getters:{},
 	mutations:{
 		cateCode:function(state,val){
-			state.params.cateCode = val;
+			state.params.cateCode = val.v2;
+			state.params1.cateCode = val.v1;
 		},
 		qmarktype:function(state,val){
-			state.params.qmarktype = val;
+			state.params.qmarktype = val.v2;
+			state.params1.qmarktype = val.v1;
 		},
 		qregdate:function(state,val){
-			state.params.qregdate = val;
+			state.params.qregdate = val.v2;
+			state.params1.qregdate = val.v1;
 		},
 		qworknum:function(state,val){
-			state.params.qworknum = val;
+			state.params.qworknum = val.v2;
+			state.params1.qworknum = val.v1;
 		},
-		qprice:function(state,val){
-			state.params.qprice = val;
+		price:function(state,val){
+			state.params1.qprice=val
+		},
+		qprice_min:function(state,val){
+			state.params.qprice_min = val;
+		},
+		qprice_max:function(state,val){
+			state.params.qprice_max = val;
 		},
 		markName:function(state,val){
 			state.params.markName = val;
@@ -39,12 +57,8 @@ export default new vuex.Store({
 		shopInfo:function(state,val){
 			state.shopInfo = val;
 		},
-		pageNumber:function(state,val){
-			if(val==0){
-				state.params.pageNumber = 1;
-			}else if(val == 1){
-				state.params.pageNumber += 1;
-			}
+		page:function(state,val){
+			state.params.page=val;
 		}
 	},
 	actions:{}

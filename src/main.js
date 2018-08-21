@@ -14,17 +14,20 @@ import './assets/style/common.css'
 Vue.config.productionTip = false
 
 Vue.prototype.axios = axios
+const host = process.env.NODE_ENV === "development" ? "" : "http://www.hzbiaodian.com";
+const instance = axios.create({
+  baseURL: host
+})
+Vue.prototype.axios = instance;
 
 //定义全局价格过滤器，保留两位小数
 Vue.filter('priceType', function (value) {
-  if(!isNaN(value)){
+    value=value-0;
   	value = value.toFixed(2);
   	return value;
-  }
 })
 
 router.beforeEach((to, from, next) => {
-  /* 路由发生变化修改页面title */
   if (to.meta.title) {
     document.title = to.meta.title
   }
@@ -43,3 +46,29 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+
+//get请求，类似如下操作
+// this.axios.get(url,{params:{a:1,b:2}})
+//  .then(res=> {
+//     console.log(res);
+//  })
+//  .catch(err=> {
+//     console.log(err);
+//  });
+//post请求，类似如下操作
+// this.axios({
+//    url:'/api/xxxxx/xxxx.xxx',
+//    method:'post',
+//    data:Qs.stringify({       //需要引入qs插件，方便后台读取参数
+//          a:1,
+//          b:2
+//    }),
+//    headers: {
+//      'Content-Type': 'application/x-www-form-urlencoded' //请求头需要设置，axios默认 'application/json'
+//    }
+// }).then(res=>{
+//  console.log(res);
+// }).catch(err=>{
+//  console.log(err);
+// })

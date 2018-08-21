@@ -1,5 +1,5 @@
 var bannerList = [
-	{"type":"1","img":require('../image/banner.png'),"url":""}
+	{"type":"1","img":require('../image/banner.png'),"url":"/"}
 ];
 var sortList = [
 	{"title":"服装商标","src":require('../image/fuzhuang.png'),"cateCode":"25"},

@@ -15,27 +15,29 @@
 			<p>商标名称：{{shopInfo.name}}</p>
 			<p>所属类别：{{shopInfo.type}}</p>
 			<p>商标编号：{{shopInfo.sbbh}}</p>
-			<p>使用期限：{{shopInfo.syqx}}</p>
-			<p>类似群组：{{shopInfo.lsqz}}</p>
+			<!-- <p>使用期限：{{shopInfo.syqx}}</p> -->
+			<p class="lsqz">类似群组：{{shopInfo.lsqz}}</p>
 			<p>注册范围：{{shopInfo.syfw}}</p>
 		</div>
 		<div class="bottom">
-			<a href="http://put.zoosnet.net/LR/Chatpre.aspx?id=PUT28485359&lng=cn">询价留言</a>
-			<a href="http://put.zoosnet.net/LR/Chatpre.aspx?id=PUT28485359&lng=cn">联系客服</a>
+			<a href="http://put.zoosnet.net/LR/Chatpre.aspx?id=PUT28485359&lng=cn" target="_blank">询价留言</a>
+			<a :href="'tel:'+kfTel" target="_blank">联系客服</a>
 		</div>
 	</div>
 </template>
 
 <script>
-
+	import baseData from '../assets/data/baseData'
 	export default {
 		name:'SbDetail',
 		data(){return{
 			shopInfo:null,
-			isKeep:false
+			isKeep:false,
+			kfTel:''
 		}},
 		created:function(){
 			this.shopInfo = this.$store.state.shopInfo;
+			this.kfTel = baseData.kfTel;
 		},
 		methods:{
 			changeKeep:function(){
@@ -93,6 +95,10 @@
 			}
 			p{
 				font-size: 26px; /*px*/
+			}
+			.lsqz{
+				word-wrap: break-word; 
+				word-break: normal; 
 			}
 		}
 		.bottom{

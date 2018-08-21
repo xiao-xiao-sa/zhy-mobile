@@ -8,11 +8,11 @@
 			</div>
 		</div>
 		<swiper :swiper="bannerList"></swiper>
-		<phone-input id="phoneInput" :class="{'isFixed':phoneInputFixed}"></phone-input>
+		<!-- <phone-input id="phoneInput" :class="{'isFixed':phoneInputFixed}"></phone-input> -->
 		<div class="floor-1">
 			<h2 class="floor-title">热门商标分类</h2>
 			<ul class="sort-list">
-				<li v-for="(item,index) in sortList" :key="index" @click="toSearch(item.cateCode)">
+				<li v-for="(item,index) in sortList" :key="index" @click="toSearch(item)">
 					<img :src="item.src" alt="">
 					<span>{{item.title}}</span>
 				</li>
@@ -30,7 +30,7 @@
 					</router-link>
 				</li>
 			</ul>
-			<div class="bottom">
+			<!-- <div class="bottom">
 				<p class="title">
 					<img src="../assets/image/guke.png" alt="">
 					<span>顾客推荐商标</span>
@@ -39,7 +39,7 @@
 					<input type="text" placeholder="请输入您的手机号码">
 					<button>马上获取</button>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="floor-3">
 			<h2 class="floor-title">精品商标</h2>
@@ -49,7 +49,7 @@
 			<h2 class="floor-title">自己挑太麻烦？一对一推荐更高效</h2>
 			<div class="content">
 				<img src="../assets/image/123456.png" alt="">
-				<a :href="kfLink" class="find">
+				<a :href="kfLink" target="_blank" class="find">
 					帮我找商标
 				</a>
 			</div>
@@ -64,7 +64,7 @@
 						<p v-html="item.content"></p>
 					</div>
 				</div>
-				<a :href="kfLink" class="kf">
+				<a :href="kfLink" target="_blank" class="kf">
 					立即咨询
 				</a>
 			</div>
@@ -75,10 +75,10 @@
 				<img src="../assets/image/6.png" alt="">
 				<span class="bq1">避免漫天要价</span>
 				<span class="bq2">杜绝虚假、欺骗现象</span>
-				<a :href="kfLink" class="kf">
+				<a :href="kfLink" target="_blank" class="kf">
 					立即咨询
 				</a>
-				<button class="tel">{{kfTel}}</button>
+				<a :href="'tel:'+kfTel" class="tel">{{kfTel}}</a>
 			</div>
 		</div>
 		<tab-bar :cur='cur'></tab-bar>
@@ -92,6 +92,7 @@
 	import BoutiqueTrademark from '../components/BoutiqueTrademark'
 	import baseData from '../assets/data/baseData'
 	import indexData from '../assets/data/indexData'
+	import Qs from 'qs'
 
 	export default {
 		name:'Index',
@@ -114,34 +115,59 @@
 			this.caseList = indexData.caseList;
 			this.floor5 = indexData.floor5;
 			//精品商标是需要从后台获取的
-			this.trademarkList = indexData.trademarkList;
-			this.axios.get(url)
-				.then(res=>{
-					console.log(res)
-				}).catch(err=>{
-					console.log(err)
-				})
+			//this.trademarkList = indexData.trademarkList;
+			this.axios({
+			   url:'/api/biaodian/get_markxm',
+			   method:'post',
+			   data:Qs.stringify({       
+			         username:'17364525677',
+			         access_token:'5b8fc031ae5a87960d5a448937f4232d'
+			   }),
+			   headers: {
+			     'Content-Type': 'application/x-www-form-urlencoded' 
+			   }
+			}).then(res=>{
+				console.log(res.data.result)
+			 var tk = res.data.result.slice(0,3);
+			 for(var i=0,l=tk.length;i<l;i++){
+			 	var t=tk[i].title;
+			 	var sbList=tk[i].sbList;
+			 	for(var j=0,l1=sbList.length;j<l1;j++){
+			 		sbList[j]["type"]=t;
+			 	}
+			 }
+			 this.trademarkList=tk;
+			}).catch(err=>{
+			 console.log(err);
+			})
 		},
 		activated:function(){
 			window.addEventListener('scroll', this.handleScroll)
 		},
 		methods:{
-			handleScroll:function(){
-			  var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-			   var offsetTop = document.querySelector('#phoneInput').offsetTop;
-			   if(scrollTop>offsetTop){
-			   	this.phoneInputFixed=true;
-			   }else{
-			   	this.phoneInputFixed=false;
-			   }
-			},
+			// handleScroll:function(){
+			//   var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+			//    var offsetTop = document.querySelector('#phoneInput').offsetTop;
+			//    if(scrollTop>offsetTop){
+			//    	this.phoneInputFixed=true;
+			//    }else{
+			//    	this.phoneInputFixed=false;
+			//    }
+			// },
 			toSearch:function(val){
-				this.$store.commit('cateCode',val)
+				this.$store.commit('cateCode',{v1:val.title,v2:val.cateCode});
+				this.$store.commit('qmarktype','');
+				this.$store.commit('qregdate','');
+				this.$store.commit('qworknum','');
+				this.$store.commit('qprice_min',0);
+				this.$store.commit('qprice_max',10000000000);
+				this.$store.commit('markName','');
+				this.$store.commit('page',1);
 				this.$router.push({path:'/Search'})
 			}
 		},
 		deactivated:function(){
-		  	window.removeEventListener('scroll', this.handleScroll);
+		  	//window.removeEventListener('scroll', this.handleScroll);
 		},
 		components:{
 			'swiper':swiper,
@@ -279,6 +305,9 @@
 				}
 				
 			}
+		}
+		.floor-3{
+			margin-top:20px;
 		}
 		.floor-4{
 			width: 100%;

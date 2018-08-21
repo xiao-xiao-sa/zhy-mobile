@@ -29,7 +29,24 @@
 			backTel:function(){
 				var phone = this.phone;
 				if(isPoneAvailable(phone)){
-					//提交后台
+					this.axios({
+					   url:'/api/biaodian/',
+					   method:'post',
+					   data:Qs.stringify({       
+					         username:'17364525677',
+					         access_token:'5b8fc031ae5a87960d5a448937f4232d',
+					         phone:phone
+
+					   }),
+					   headers: {
+					     'Content-Type': 'application/x-www-form-urlencoded' 
+					   }
+					}).then(res=>{
+						console.log(res);
+						alert("提交成功，我们会尽快联系您！")
+					}).catch(err=>{
+						console.log(err)
+					})
 				}else{
 					alert('请输入正确的手机号码，11位数字')
 				}

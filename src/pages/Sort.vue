@@ -14,7 +14,7 @@
 						热门分类
 					</h2>
 					<ul>
-						<li v-for="(item,index) in huoList" :key="index" @click="toSearch(item.cateCode)">
+						<li v-for="(item,index) in huoList" :key="index" @click="toSearch(item)">
 							{{item.title}}
 						</li>
 					</ul>
@@ -25,7 +25,7 @@
 						全部分类
 					</h2>
 					<ul>
-						<li v-for="(item,index) in allSortList" :key="index" @click="toSearch(item.cateCode)">
+						<li v-for="(item,index) in allSortList" :key="index" @click="toSearch(item)">
 							<img :src="item.src" alt="">
 							<p>{{item.title}}</p>
 						</li>
@@ -107,11 +107,25 @@
 		methods:{
 			toSearch:function(val){
 				console.log(val);
-				this.$store.commit('cateCode',val);
+				this.$store.commit('cateCode',{v1:val.title,v2:val.cateCode});
+				this.$store.commit('qmarktype','');
+				this.$store.commit('qregdate','');
+				this.$store.commit('qworknum','');
+				this.$store.commit('qprice_min',0);
+				this.$store.commit('qprice_max',10000000000);
+				this.$store.commit('markName','');
+				this.$store.commit('page',1);
 				this.$router.push({path:'/Search'});
 			},
 			searchMarkName:function(){
+				this.$store.commit('cateCode','');
+				this.$store.commit('qmarktype','');
+				this.$store.commit('qregdate','');
+				this.$store.commit('qworknum','');
+				this.$store.commit('qprice_min',0);
+				this.$store.commit('qprice_max',10000000000);
 				this.$store.commit('markName',this.markName);
+				this.$store.commit('page',1);
 				this.$router.push({path:'/Search'})
 			}
 		},

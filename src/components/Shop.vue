@@ -5,7 +5,7 @@
 			<h2 class="name">{{shopInfo.name}}</h2>
 			<p class="type">{{shopInfo.type}}</p>
 			<p class="syfw">{{shopInfo.syfw | changeTextLength}}</p>
-			<p class="price">价格：&yen;{{shopInfo.price | priceType}}</p>
+			<!-- <p class="price">价格：&yen;{{shopInfo.price | priceType}}</p> -->
 		</div>
 	</div>
 </template>

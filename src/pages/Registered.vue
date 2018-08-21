@@ -1,6 +1,6 @@
 <template>
 	<div class="registered">
-		<phone-input class="phone"></phone-input>
+		<!-- <phone-input class="phone"></phone-input> -->
 		<div class="header" :style="{backgroundImage:'url('+bannerImg+')'}">
 		</div>
 		<div class="content">
@@ -108,7 +108,6 @@
 			width: 100%;
 		}
 		.header{
-			margin-top: 100px;
 			width: 100%;
 			height: 350px;
 			box-sizing: border-box;

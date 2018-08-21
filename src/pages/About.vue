@@ -1,7 +1,7 @@
 <template>
 	<div class="about">
 		<div id="map" class="map"></div>
-		<phone-input class="phone"></phone-input>
+		<!-- <phone-input class="phone"></phone-input> -->
 		<div class="content" v-html="companyInfo"></div>
 		<tab-bar :cur='cur'></tab-bar>
 	</div>

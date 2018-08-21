@@ -14,7 +14,7 @@
 				</router-link>
 			</li>
 			<li class="tab-item online" :class="{'active':cur===''}">
-				<a href="http://put.zoosnet.net/LR/Chatpre.aspx?id=PUT28485359&lng=cn">
+				<a href="http://put.zoosnet.net/LR/Chatpre.aspx?id=PUT28485359&lng=cn" target="_blank">
 					<i class="iconfont icon-zaixiankefu" style="color:#ff2132;"></i><br/>
 					<span>在线咨询</span>
 				</a>	

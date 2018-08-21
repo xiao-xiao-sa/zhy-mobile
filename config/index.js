@@ -12,10 +12,10 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
         '/api': {
-            target: '',// 请换成你的地址
+            target: 'http://www.hzbiaodian.com',// 请换成你的地址
             changeOrigin: true,
             pathRewrite: {
-              '^/api': ''
+              '^/api': '/api'
             }
         }
     },
